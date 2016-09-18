@@ -1,0 +1,3 @@
+[submodule "historical-us-city-populations"]
+  path = historical-us-city-populations
+  url = git@github.com:lmullen/historical-us-city-populations.git

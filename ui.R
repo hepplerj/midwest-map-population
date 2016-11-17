@@ -12,19 +12,18 @@ shinyUI(
     
     absolutePanel(id = "controls",
                top = 0, left = 0, width = 350,
-               h3("Midwestern Population Growth"),
-               p(strong("UNDER DEVELOPMENT", style = "color: red;")),
-               sliderInput("year", "Year", value = 1850, sep = "",
-                           min = 1850, max = 2010, step = 10,
+               h3("Midwest Population Growth"),
+               sliderInput("year", label = "Year", value = 1860, sep = "",
+                           min = 1860, max = 2010, step = 10,
                            width = "100%",
-                           animate=animationOptions(interval=1000, loop=FALSE)),
-               checkboxInput("state_boundaries", "County boundaries", FALSE),
-               selectInput("select", label = "Demographics",  
-                           choices = list("All population" = 1, "African American" = 2, "Asian American" = 3, "Mexican American" = 3), 
-                           selected = 1),
+                           animate=animationOptions(interval=1400, loop=FALSE)),
+               checkboxInput("state_boundaries", label = "County boundaries", FALSE),
+               #selectInput("population", label = "Demographics",  
+               #            choices = list("None" = 1, "All population" = 2, "African American" = 3, "Asian American" = 4, "Mexican American" = 5), 
+               #            selected = 1),
                plotOutput("cities_hist", height = 200),
                tags$p(tags$small(includeHTML("cesta_attr.html"))),
-               tags$p(tags$small(includeHTML("my_attr.html")))
+               tags$p(tags$small(includeHTML("attr.html")))
                )
     )
 )

@@ -1,4 +1,5 @@
 cities <- read_csv("midwest.csv")
+#counties <- read_csv("midwest-census.csv")
 
 radius_scale <- function(x) {
   max_pop <- sqrt(max(cities$population))
@@ -13,8 +14,6 @@ popup_maker <- function(name, year, population, county) {
          "<b>", "Population in ", year, ": ", "</b>", comma(population))
 }
 
-pal <- colorQuantile("Blues", NULL, n = 5)
-
 draw_cities <- function(map, data) {
   map %>%
     clearMarkers() %>%
@@ -27,10 +26,17 @@ draw_cities <- function(map, data) {
                                          data$year,
                                          data$population,
                                          data$county_name),
-                     options = markerOptions(zIndexOffset = 100))# %>%
-    #addPolygons(data = data,
-    #            fillColor = ~pal(population),
-    #            fillOpacity = 0.7,
-    #            color = "white",
-    #            weight = 1)
+                     options = markerOptions(zIndexOffset = 100))
+}
+  
+draw_demographics <- function(map, data) {
+  pal <- colorQuantile("Blues", NULL, n = 5)
+  
+  map %>%
+    clearShapes() %>%
+    addPolygons(data = data,
+                fillColor = ~pal(population),
+                fillOpacity = 0.7,
+                color = "white",
+                weight = 1)
 }

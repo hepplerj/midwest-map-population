@@ -49,7 +49,7 @@ shinyServer(function(input, output, session) {
     # rely on that, then Shiny will make drawing the map reactive, and every
     # time cities_by_year() changes, the entire map will be redrawn.
     map %>%
-      draw_cities(filter(cities, year == 1860)) #%>%
+      draw_cities(filter(cities, year == 1810)) #%>%
       #draw_demographics(filter(cities, year == 1860))
   })
 

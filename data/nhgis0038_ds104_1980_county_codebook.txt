@@ -1,0 +1,125 @@
+--------------------------------------------------------------------------------
+Codebook for NHGIS data file 'nhgis0038_ds104_1980_county'
+--------------------------------------------------------------------------------
+ 
+Contents
+    - Data Summary
+    - Data Dictionary
+    - Citation and Use
+ 
+Additional documentation on NHGIS data sources is available at: 
+    https://www.nhgis.org/documentation/tabular-data 
+ 
+--------------------------------------------------------------------------------
+Data Summary
+--------------------------------------------------------------------------------
+ 
+Year:             1980
+Geographic level: County (by State)
+Dataset:          1980 Census: STF 1 - 100% Data
+   NHGIS code:    1980_STF1
+   NHGIS ID:      ds104
+Breakdown(s):     Geographic Subarea:
+                     Total area (0000)
+ 
+Tables:
+ 
+1. Race
+   Universe:    Persons
+   Source code: NT7
+   NHGIS code:  C9D
+ 
+--------------------------------------------------------------------------------
+Data Dictionary
+--------------------------------------------------------------------------------
+ 
+Context Fields 
+        GISJOIN:     GIS Join Match Code
+        YEAR:        Data File Year
+        REGIONA:     Region Code
+        DIVISIONA:   Division Code
+        STATE:       State Name
+        STATEA:      State Code
+        SMSAA:       Standard Metropolitan Statistical Area Code
+        COUNTY:      County Name
+        COUNTYA:     County Code
+        CTY_SUBA:    County Subdivision Code
+        PLACEA:      Place Code
+        TRACTA:      Census Tract Code
+        BLOCKA:      Block Code
+        BLCK_GRPA:   Block Group Code
+        EDINDA:      Enumeration District Indicator Code
+        ENUMDISTA:   Enumeration District Code
+        SCSAA:       Standard Consolidated Statistical Area Code
+        URB_AREAA:   Urban Area Code
+        CDA:         Congressional District Code
+        AIANHHA:     American Indian Area/Alaska Native Area/Hawaiian Home Land Code
+        ZIPA:        5-Digit Zip Code Code
+        AREANAME:    Area Name
+ 
+Breakdown:
+    Geographic Subarea: Total area (0000)
+ 
+    Table 1:     Race
+    Universe:    Persons
+    Source code: NT7
+    NHGIS code:  C9D
+        C9D001:      White
+        C9D002:      Black
+        C9D003:      American Indian, Eskimo, and Aleut: American Indian
+        C9D004:      American Indian, Eskimo, and Aleut: Eskimo
+        C9D005:      American Indian, Eskimo, and Aleut: Aleut
+        C9D006:      Asian and Pacific Islander: Japanese
+        C9D007:      Asian and Pacific Islander: Chinese
+        C9D008:      Asian and Pacific Islander: Filipino
+        C9D009:      Asian and Pacific Islander: Korean
+        C9D010:      Asian and Pacific Islander: Asian Indian
+        C9D011:      Asian and Pacific Islander: Vietnamese
+        C9D012:      Asian and Pacific Islander: Hawaiian
+        C9D013:      Asian and Pacific Islander: Guamanian
+        C9D014:      Asian and Pacific Islander: Samoan
+        C9D015:      Other
+ 
+--------------------------------------------------------------------------------
+Citation and Use of NHGIS Data
+--------------------------------------------------------------------------------
+ 
+All persons are granted a limited license to use this documentation and the
+accompanying data, subject to the following conditions:
+
+* Publications and research reports employing NHGIS data (either tabular or GIS)
+  must cite it appropriately. The citation should include the following:
+
+    Minnesota Population Center. National Historical Geographic Information
+    System: Version 11.0 [Database]. Minneapolis: University of Minnesota. 2016.
+    http://doi.org/10.18128/D050.V11.0.
+
+* Publications and research reports employing school attendance areas data
+  (either tabular or GIS) must cite it appropriately. The citation should
+  include the following:
+
+    The College of William and Mary and the Minnesota Population Center.
+    School Attendance Boundary Information System (SABINS): Version 1.0.
+    Minneapolis, MN: University of Minnesota 2011.
+
+* If possible, citations should also include the URL for the NHGIS site:
+
+    https://www.nhgis.org/
+
+* If possible, citations involving school attendance areas should also include
+  the URL for the SABINS site:
+
+    http://www.sabinsdata.org/
+
+In addition, we request that users send us a copy of any publications, research
+reports, or educational material making use of the data or documentation.
+Printed matter should be sent to:
+
+    NHGIS
+    Minnesota Population Center
+    University of Minnesota
+    50 Willey Hall
+    225 19th Ave S
+    Minneapolis, MN 55455
+
+Send electronic material to: nhgis@umn.edu

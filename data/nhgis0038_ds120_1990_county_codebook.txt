@@ -1,5 +1,5 @@
 --------------------------------------------------------------------------------
-Codebook for NHGIS data file 'nhgis0013_ds3_1810_county'
+Codebook for NHGIS data file 'nhgis0038_ds120_1990_county'
 --------------------------------------------------------------------------------
  
 Contents
@@ -14,38 +14,65 @@ Additional documentation on NHGIS data sources is available at:
 Data Summary
 --------------------------------------------------------------------------------
  
-Year:             1810
+Year:             1990
 Geographic level: County (by State)
-Dataset:          1810 Census: Population Data [US, States & Counties]
-   NHGIS code:    1810_cPop
-   NHGIS ID:      ds3
+Dataset:          1990 Census: STF 1 - 100% Data
+   NHGIS code:    1990_STF1
+   NHGIS ID:      ds120
+Breakdown(s):     Geographic Subarea:
+                     Total area (00)
  
 Tables:
  
-1. Nonwhite Population, Except Indians Not Taxed by Slave Status
-   Universe:    Non-White Persons Except Indians Not Taxed
-   Source code: NT6
-   NHGIS code:  AA7
+1. Race
+   Universe:    Persons
+   Source code: NP6
+   NHGIS code:  EUY
  
 --------------------------------------------------------------------------------
 Data Dictionary
 --------------------------------------------------------------------------------
  
 Context Fields 
-    GISJOIN:     GIS Join Match Code
-    YEAR:        Data File Year
-    STATE:       State Name
-    STATEA:      State Code
-    COUNTY:      County Name
-    COUNTYA:     County Code
-    AREANAME:    Area name
+        GISJOIN:     GIS Join Match Code
+        YEAR:        Data File Year
+        ANRCA:       Alaska Native Regional Corporation Code
+        RES_ONLYA:   American Indian Reservation [excluding trust lands] Code
+        TRUSTA:      American Indian Reservation [trust lands only] Code
+        AIANHHA:     American Indian Area/Alaska Native Area/Hawaiian Home Land Code
+        RES_TRSTA:   Reservation/Trust Lands Code
+        BLOCKA:      Block Code
+        BLCK_GRPA:   Block Group Code
+        TRACTA:      Census Tract Code
+        CDA:         Congressional District (101st) Code
+        C_CITYA:     Consolidated City Code
+        COUNTY:      County Name
+        COUNTYA:     County Code
+        CTY_SUBA:    County Subdivision Code
+        DIVISIONA:   Division Code
+        MSA_CMSAA:   Metropolitan Statistical Area/Consolidated Metropolitan Statistical Area Code
+        PLACEA:      Place Code
+        PMSAA:       Primary Metropolitan Statistical Area Code
+        REGIONA:     Region Code
+        STATE:       State Name
+        STATEA:      State Code
+        URBRURALA:   Urban/Rural Code
+        URB_AREAA:   Urban Area Code
+        CD103A:      Congressional District (103rd) Code
+        ANPSADPI:    Area Name/PSAD Term/Part Indicator
  
-Table 1:     Nonwhite Population, Except Indians Not Taxed by Slave Status
-Universe:    Non-White Persons Except Indians Not Taxed
-Source code: NT6
-NHGIS code:  AA7
-    AA7001:      Free
-    AA7002:      Slave
+Breakdown:
+    Geographic Subarea: Total area (00)
+ 
+    Table 1:     Race
+    Universe:    Persons
+    Source code: NP6
+    NHGIS code:  EUY
+        EUY001:      White
+        EUY002:      Black
+        EUY003:      American Indian, Eskimo, or Aleut
+        EUY004:      Asian or Pacific Islander
+        EUY005:      Other race
  
 --------------------------------------------------------------------------------
 Citation and Use of NHGIS Data
@@ -58,7 +85,8 @@ accompanying data, subject to the following conditions:
   must cite it appropriately. The citation should include the following:
 
     Minnesota Population Center. National Historical Geographic Information
-    System: Version 2.0. Minneapolis, MN: University of Minnesota 2011.
+    System: Version 11.0 [Database]. Minneapolis: University of Minnesota. 2016.
+    http://doi.org/10.18128/D050.V11.0.
 
 * Publications and research reports employing school attendance areas data
   (either tabular or GIS) must cite it appropriately. The citation should

@@ -45,12 +45,10 @@ shinyServer(function(input, output, session) {
                                                  maxZoom = 8)) %>%
             setView(lat = 43.25, lng = -94.30, zoom = 6)
 
-    # Initally draw the map without relying on cities_by_year(). Because if we
-    # rely on that, then Shiny will make drawing the map reactive, and every
-    # time cities_by_year() changes, the entire map will be redrawn.
+    # Initally draw the map without relying on cities_by_year()
     map %>%
       draw_cities(filter(cities, year == 1810)) #%>%
-      #draw_demographics(filter(cities, year == 1860))
+      #draw_demographics(filter(cities, year == 1810))
   })
 
   observe({
@@ -67,9 +65,9 @@ shinyServer(function(input, output, session) {
       map %>%
         clearShapes() %>%
         addPolygons(data = counties,
-                    fill = FALSE, color = "#99AD48", fillOpacity = 0.5, weight = 0.3) %>%
+                    fill = FALSE, color = "#57234D", fillOpacity = 0.5, weight = 0.3) %>%
         addPolygons(data = state,
-                    fill = FALSE, color= "#99AD48", weight = 1)
+                    fill = FALSE, color= "#57234D", weight = 1)
     } else {
      map %>% clearShapes()
     }

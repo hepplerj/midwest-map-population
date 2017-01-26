@@ -34,4 +34,4 @@ names(cities) <- tolower(names(cities))
 names(midwest) <- tolower(names(midwest))
 
 write_csv(cities, path = "cities.csv")
-write_csv(midwest, path = "midwest.csv")
+write_csv(midwest, path = "midwest-cities.csv")

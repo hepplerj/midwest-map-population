@@ -1,5 +1,5 @@
-cities <- read_csv("midwest.csv")
-#counties <- read_csv("midwest-census.csv")
+cities <- read_csv("midwest-cities.csv")
+counties <- read_csv("midwest-census.csv")
 
 radius_scale <- function(x) {
   max_pop <- sqrt(max(cities$population))
@@ -18,7 +18,7 @@ draw_cities <- function(map, data) {
   map %>%
     clearMarkers() %>%
     addCircleMarkers(data = data,
-                     fillColor = "#57234D", fillOpacity = 0.4, weight = 0.5,
+                     fillColor = "#B53D35", fillOpacity = 0.6, weight = 0.5,
                      color = "#fff",
                      radius = ~radius_scale(population),
                      lng = ~lng, lat = ~lat, layerId = ~id,

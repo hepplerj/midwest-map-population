@@ -30,13 +30,21 @@ draw_cities <- function(map, data) {
 }
   
 draw_demographics <- function(map, data) {
-  pal <- colorQuantile("Blues", NULL, n = 5)
+  
+  pal <- colorNumeric(
+    palette = "Blues",
+    domain = data$dat
+  )
   
   map %>%
     clearShapes() %>%
     addPolygons(data = data,
-                fillColor = ~pal(population),
+                fillColor = ~pal(dat),
                 fillOpacity = 0.7,
                 color = "white",
-                weight = 1)
+                weight = 1) %>%
+    addLegend(pal = pal,
+              values = data$dat,
+              position = "bottomright",
+              title = "Population")
 }

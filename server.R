@@ -21,10 +21,10 @@ shinyServer(function(input, output, session) {
       filter(year == input$year)
   })
   
-  #demographics_by_year <- reactive({
-  #  counties %>%
-  #    filter(population == input$population)
-  #})
+  demographics_by_year <- reactive({
+    counties %>%
+      filter(population == input$population)
+  })
  
   output$cities_hist <- renderPlot({
     pops <- cities_by_year()
@@ -44,11 +44,13 @@ shinyServer(function(input, output, session) {
                                                  minZoom = 4,
                                                  maxZoom = 8)) %>%
             setView(lat = 43.25, lng = -94.30, zoom = 6)
-
+    
     # Initally draw the map without relying on cities_by_year()
     map %>%
-      draw_cities(filter(cities, year == 1810)) #%>%
-      #draw_demographics(filter(cities, year == 1810))
+      draw_cities(filter(cities, year == 1810))
+    
+    #map %>%
+    #  draw_demographics(filter(counties, year == 1810))
   })
 
   observe({

@@ -22,7 +22,7 @@ shinyUI(
                            choices = list("None" = 1, "All population" = 2, 
                                           "Black population" = 3, "Enslaved population (1790-1860)" = 4, 
                                           "Free black population (1790-1860)" = 5, "Asian population" = 6, 
-                                          "Hispanic population" = 7, "Population density" = 8), 
+                                          "Hispanic population" = 7, "Native population" = 8, "Population density" = 9), 
                            selected = 1),
                plotOutput("cities_hist", height = 200),
                tags$p(tags$small(includeHTML("cesta_attr.html"))),

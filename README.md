@@ -7,7 +7,7 @@ This repository contains the released data and web application for mapping popul
 [Jason Heppler](http://jasonheppler.org), Ph.D.  
 Digital Engagement Librarian & Assist. Professor of History, University of Nebraska at Omaha
 
-Gleaves Whitney, Ph.D. 
+Gleaves Whitney, Ph.D.  
 Director, The Hauenstein Center, Grand Valley State University
 
 Scott St Louis  

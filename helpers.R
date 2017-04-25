@@ -1,5 +1,6 @@
 cities <- read_csv("midwest-cities.csv")
-counties <- read_csv("midwest-census.csv")
+counties <- read_rds("midwest-counties.rds")
+names(counties) <- c(1860, 1870, 1880, 1890, 1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000, 2010)
 
 radius_scale <- function(x) {
   max_pop <- sqrt(max(cities$population))
@@ -8,6 +9,7 @@ radius_scale <- function(x) {
     rescale(to = c(1, 55), from = range(0, max_pop))
 }
 
+# Handle pop-ups
 popup_maker <- function(name, year, population, county) {
   paste0("<h5>", name, "</h5>",
          "<b>", "County: ", "</b>", county, "<br>",
@@ -29,11 +31,12 @@ draw_cities <- function(map, data) {
                      options = markerOptions(zIndexOffset = 100))
 }
   
-draw_demographics <- function(map, data) {
+draw_demographics <- function(map, data, population) {
   
-  pal <- colorNumeric(
+  pal <- colorQuantile(
     palette = "Blues",
-    domain = data$dat
+    domain = data,
+    n = 9
   )
   
   map %>%
@@ -42,9 +45,9 @@ draw_demographics <- function(map, data) {
                 fillColor = ~pal(dat),
                 fillOpacity = 0.7,
                 color = "white",
-                weight = 1) %>%
-    addLegend(pal = pal,
-              values = data$dat,
-              position = "bottomright",
-              title = "Population")
+                weight = 1)# %>%
+    #addLegend(pal = pal,
+    #          values = data$dat,
+    #          position = "bottomright",
+    #          title = "Population")
 }

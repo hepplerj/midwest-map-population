@@ -6,6 +6,7 @@ library(scales)
 library(leaflet)
 library(USAboundaries)
 
+# color palette
 # purple: 57234D
 # yellow: F1AD0D
 # red: B53D35
@@ -15,7 +16,7 @@ library(USAboundaries)
 source("helpers.R")
 
 shinyServer(function(input, output, session) {
-
+  
   cities_by_year <- reactive({
     cities %>%
       filter(year == input$year)
@@ -23,19 +24,25 @@ shinyServer(function(input, output, session) {
   
   demographics_by_year <- reactive({
     counties %>%
-      filter(population == input$population)
+      filter(year == counties[[input$year]])
   })
- 
+  
+  # Histogram plot of population 
+  # ---------------------------------------------------------------------------
   output$cities_hist <- renderPlot({
     pops <- cities_by_year()
     ggplot(pops, aes(x = population)) +
       geom_histogram() +
       scale_x_log10(labels = comma) +
       theme_minimal() +
+      theme(text = element_text(family="Open Sans"),
+            plot.title = element_text(family = "Open Sans Semibold")) +
       labs(x = "Population", y = "# of cities",
            title = paste("Midwest cities in", input$year))
   })
 
+  # Map setup
+  # ---------------------------------------------------------------------------
   output$cities_map <- renderLeaflet({
     map <- leaflet() %>%
             addProviderTiles(provider = "CartoDB.Positron",
@@ -47,16 +54,18 @@ shinyServer(function(input, output, session) {
     
     # Initally draw the map without relying on cities_by_year()
     map %>%
-      draw_cities(filter(cities, year == 1810))
+      draw_cities(filter(cities, year == 1860))
     
-    #map %>%
-    #  draw_demographics(filter(counties, year == 1810))
+    map %>%
+      draw_demographics(filter(counties, year == 1860 & population == "totalPopulation"))
   })
-
+  
   observe({
     map <- leafletProxy("cities_map", session, deferUntilFlush = TRUE)
   })
 
+  # County boundaries
+  # ---------------------------------------------------------------------------
   observe({
     map <- leafletProxy("cities_map", session, deferUntilFlush = FALSE)
     if (input$state_boundaries) {
@@ -75,10 +84,25 @@ shinyServer(function(input, output, session) {
     }
   })
   
+  # Update cities by year
+  # ---------------------------------------------------------------------------
   observe({
     leafletProxy("cities_map", session, deferUntilFlush = FALSE) %>%
       draw_cities(cities_by_year()) #%>%
-      #draw_demographics(demographics_by_year())
+      draw_demographics(demographics_by_year())
   })
+  
+  # Provide data for download
+  # ---------------------------------------------------------------------------
+  data_for_dl <- reactive({
+    dat <- select(metro()@data, GISJOIN, state, county, totalWhitePopulation, totalAfAmPopulation, totalAsianPopulation, totalIndianPopulation, totalDensity, totalPopulation)
+  })
+  output$downloadCSV <- downloadHandler(
+    filename = 'data.csv',
+    content = function(file) {
+      write_csv(data_for_dl(), file)
+    }
+  )
+  downloadLink('downloadCSV', label = "Download CSV for active timeframe.")
 
 })

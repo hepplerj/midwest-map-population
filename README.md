@@ -26,4 +26,4 @@ For a futher breakdown of specifications and how the data was derived, see `DATA
 
 ## License
 
-The data in this repository is made available under the Open Data Commons Attribution License, [ODC-BY 1.0](http://opendatacommons.org/licenses/by/summary/).
+Unless otherwise noted in the `data` directory, the data in this repository is made available under the Open Data Commons Attribution License, [ODC-BY 1.0](http://opendatacommons.org/licenses/by/summary/).

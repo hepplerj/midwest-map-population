@@ -2,15 +2,16 @@
 
 ## Summary
 
-The data contained in this repository was prepared by Jason A. Heppler to explore population and demographic change in the American Midwest between 1790 and 2010.
+The data contained in this repository was prepared by Jason A. Heppler to explore population and demographic change in the American Midwest between 1810 and 2010.
 
 ## Type, Format, Extent
 
-The data is stored as `csv`. The `midwest-cities` file is 1.3 MB in size, the `midwest-census` file is 895.6 KB in size.
+The project strives to use widely-used and sharable data formats, where
+possible. Most of the data is stored as `csv` files: `midwest-cities` is 1.3 MB in size, `midwest-census` is 895.6 KB in size.  Several shapefiles were also generated for use with Leaflet.
 
 ## Filenaming Conventions
 
-The data files are prepended with `midwest-` to indicate that they are subset of larger data files.
+The `csv` data files are prepended with `midwest-` to indicate that they are subset of larger data files (in this case, the CESTA city data and NHGIS data tables).
 
 ## Modifications
 
@@ -20,12 +21,19 @@ For the purposes of creating a look-up table for the demographic information, th
 
 See also the two scripts used for the data preparation:
 
-- `prep-census.R`:
-- `prep-data.R`:
+- `prep-census.R`: This script uses NHGIS shapefiles and data tables to
+  create demographic information about the Midwest. The output includes
+  a shapefile for each decade, and `midwest-census.csv` file.
+- `prep-data.R`: This script uses the CESTA cities population data to
+  clean up lat/long information, filter the data to Midwestern states,
+  and writes a `midwest-cities.csv` file.
 
 ## Methods and Tools
 
 The data was prepared using the R language, relying on two scripts `prep-census.R` and `prep-data.R`. Explanations of these scripts can be found above in the **Modifications** section.
+
+The visualization of the information is done in
+[Shiny](https://shiny.rstudio.com/).
 
 ## Sources
 

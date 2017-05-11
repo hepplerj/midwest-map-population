@@ -1,4 +1,4 @@
-cities <- read_csv("midwest-cities.csv")
+cities <- read_csv("data/midwest-cities.csv")
 fn <- Sys.glob("shp/*.shp")
 counties <- lapply(fn, read_sf)
 names(counties) <- c("1810", "1820","1830","1840","1850","1860","1870","1880","1890","1900",

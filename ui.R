@@ -18,7 +18,7 @@ shinyUI(
                h3("Midwest Population Growth"),
                
                # Slider for year selection
-               sliderInput("year", label = "Year", value = 1860, sep = "",
+               sliderInput("year", label = "Year", value = 1810, sep = "",
                            min = 1810, max = 2010, step = 10,
                            width = "100%",
                            animate=animationOptions(interval=1400, loop=FALSE)),
@@ -28,14 +28,21 @@ shinyUI(
               
                # Select demographics 
                selectInput("population", label = "Demographics",  
-                           choices = list("None" = 1, "All population" = 2, 
-                                          "Black population" = 3, "Enslaved population (1790-1860)" = 4, 
-                                          "Free black population (1790-1860)" = 5, "Asian population" = 6, 
-                                          "Hispanic population" = 7, "Native population" = 8, "Population density" = 9), 
-                           selected = 1),
+                           choices = list("None" = "None", 
+                                          "All population" = "totalPop", 
+                                          "Black population" = "totalAfAm", 
+                                          "Enslaved population (1790-1860)" = "slavePop", 
+                                          "Free black population (1790-1860)" = "freeAfAm", 
+                                          "Asian population" = "totalAsian", 
+                                          "Latino population" = "totalHispanic", 
+                                          "Native population" = "totalIndian", 
+                                          "Population density" = "totalDens"), 
+                           selected = "totalPop"),
               
-               # Output 
+               # Histogram plot 
                plotOutput("cities_hist", height = 200),
+              
+               # Credits 
                tags$p(tags$small(includeHTML("cesta_attr.html"))),
                tags$p(tags$small(includeHTML("attr.html")))
                )

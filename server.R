@@ -5,6 +5,7 @@ library(ggplot2)
 library(scales)
 library(leaflet)
 library(USAboundaries)
+library(sf)
 
 # color palette
 # purple: 57234D
@@ -17,14 +18,15 @@ source("helpers.R")
 
 shinyServer(function(input, output, session) {
   
+  # Reactives
+  # Handle data selection and filtering
   cities_by_year <- reactive({
     cities %>%
       filter(year == input$year)
   })
   
-  demographics_by_year <- reactive({
-    counties %>%
-      filter(year == counties[[input$year]])
+  demographics_filtered <- reactive({
+    counties[[input$year]]
   })
   
   # Histogram plot of population 
@@ -37,7 +39,7 @@ shinyServer(function(input, output, session) {
       theme_minimal() +
       theme(text = element_text(family="Open Sans"),
             plot.title = element_text(family = "Open Sans Semibold")) +
-      labs(x = "Population", y = "# of cities",
+      labs(x = "Population", y = "Number of cities",
            title = paste("Midwest cities in", input$year))
   })
 
@@ -52,12 +54,11 @@ shinyServer(function(input, output, session) {
                                                  maxZoom = 8)) %>%
             setView(lat = 43.25, lng = -94.30, zoom = 6)
     
-    # Initally draw the map without relying on cities_by_year()
+    # Initally draw the map defaulting to 1810
     map %>%
-      draw_cities(filter(cities, year == 1860))
+      draw_cities(filter(cities, year == 1810))
     
-    map %>%
-      draw_demographics(filter(counties, year == 1860 & population == "totalPopulation"))
+    draw_demographics(map, counties[["1810"]])
   })
   
   observe({
@@ -88,21 +89,8 @@ shinyServer(function(input, output, session) {
   # ---------------------------------------------------------------------------
   observe({
     leafletProxy("cities_map", session, deferUntilFlush = FALSE) %>%
-      draw_cities(cities_by_year()) #%>%
-      draw_demographics(demographics_by_year())
+      draw_cities(cities_by_year()) %>% 
+      draw_demographics(demographics_filtered())
   })
   
-  # Provide data for download
-  # ---------------------------------------------------------------------------
-  data_for_dl <- reactive({
-    dat <- select(metro()@data, GISJOIN, state, county, totalWhitePopulation, totalAfAmPopulation, totalAsianPopulation, totalIndianPopulation, totalDensity, totalPopulation)
-  })
-  output$downloadCSV <- downloadHandler(
-    filename = 'data.csv',
-    content = function(file) {
-      write_csv(data_for_dl(), file)
-    }
-  )
-  downloadLink('downloadCSV', label = "Download CSV for active timeframe.")
-
 })

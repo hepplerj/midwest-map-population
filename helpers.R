@@ -19,25 +19,6 @@ popup_cities <- function(name, year, population, county) {
          "<b>", "Population in ", year, ": ", "</b>", comma(population))
 }
 
-# For demographics
-# Not sure we'll need or want this. The click interaction might interfere with
-# the bubble maps. But maybe that data should pop up for the city bubbles instead
-# of the county?
-popup_demo <- function(county, state, totalPopulation, totalWhitePopulation, totalWhitePercentage, totalAfAmPopulation,
-                       totalAfAmPercentage, totalAsianPopulation, totalAsianPercentage, totalIndianPopulation, totalIndanPercentage) {
-  paste0("<strong>", county, " County", ", ", state, "</strong>", 
-                  "<br><strong>Population: </strong>", 
-                  totalPopulation,
-                  "<br><strong>White population: </strong>",
-                  totalWhitePopulation, " (", totalWhitePercentage, "%)",
-                  "<br><strong>African American population: </strong>",
-                  totalAfAmPopulation , " (" , totalAfAmPercentage , "%)",
-                  "<br><strong>Asian population: </strong>",
-                  totalAsianPopulation, " (", totalAsianPercentage, "%)",
-                  "<br><strong>Indian population: </strong>",
-                  totalIndianPopulation, " (", totalIndianPercentage, "%)")
-}
-
 ## Functions
 
 # draw_cities to draw population bubbles

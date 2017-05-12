@@ -501,8 +501,7 @@ midwestStates <- c("Illinois", "Indiana", "Iowa", "Kansas", "Missouri", "Minneso
 midwestCensus <- all %>%
   filter(state %in% midwestStates)
 
-# CSV and RDS
-#write_rds(midwestCensus, "midwest-census.rds")
+# Write CSV
 write_csv(midwestCensus, "midwest-census.csv", na = "")
 
 ###--------------------------------------------------
@@ -661,5 +660,3 @@ write_sf(obj=merge_2010, dsn="~/Desktop", layer="merge_2010", driver="ESRI Shape
 # Clean up
 rm(list=ls(pattern="shp_"))
 rm(list=ls(pattern="c_"))
-
-#save(merge_all, file = "midwest-counties.rds")

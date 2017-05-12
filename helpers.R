@@ -53,7 +53,7 @@ draw_cities <- function(map, data) {
 }
 
 # draw_demographics draws the choropleth  
-draw_demographics <- function(map, data) {
+draw_demographics <- function(input, map, data) {
   
   pal <- colorNumeric("Blues", NULL, n = 9)
   

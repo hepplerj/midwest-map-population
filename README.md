@@ -26,7 +26,7 @@ Founding president of the Midwestern History Association and Adjunct Professor o
 
 `midwest-counties.csv`: Data derived as a subset of NHGIS data, filtered down to midwestern cities to illustrate demographic data.
 
-For a futher breakdown of specifications and how the data was derived, see `DATA.md`.
+For a futher breakdown of specifications and how the data was derived, see [DATA.md](DATA.md).
 
 ## License
 

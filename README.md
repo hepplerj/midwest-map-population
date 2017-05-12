@@ -1,6 +1,10 @@
 # Mapping Midwest
 
-This repository contains the released data and web application for mapping population change in the Midwest. 
+This repository contains the released data and web application for mapping population and demographic change in the American Midwest. 
+
+- [Project Team](#project-team)
+- [Data](#data)
+- [License](#license)
 
 ## Project Team
 

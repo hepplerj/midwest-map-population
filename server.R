@@ -55,8 +55,8 @@ shinyServer(function(input, output, session) {
             setView(lat = 43.25, lng = -94.30, zoom = 6)
     
     # Initally draw the map defaulting to 1810
-    map %>% draw_cities(filter(cities, year == 1810))
-    draw_demographics(input, map, counties[["1810"]])
+    map %>% draw_cities(filter(cities, year == 1810)) %>% 
+            draw_demographics(input, counties[["1810"]])
   })
   
   observe({
@@ -87,8 +87,11 @@ shinyServer(function(input, output, session) {
   # ---------------------------------------------------------------------------
   observe({
     leafletProxy("cities_map", session, deferUntilFlush = FALSE) %>%
-      draw_cities(cities_by_year()) #%>% 
-      #draw_demographics(demographics_filtered())
+      draw_cities(cities_by_year())
   })
+  #observe({
+  #  leafletProxy("cities_map", session, deferUntilFlush = FALSE) %>% 
+  #    draw_demographics(demographics_filtered())
+  #})
   
 })

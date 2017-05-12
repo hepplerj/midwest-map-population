@@ -21,7 +21,7 @@ popup_cities <- function(name, year, population, county) {
 
 ## Functions
 
-# draw_cities to draw population bubbles
+# draw_cities draws population bubbles
 draw_cities <- function(map, data) {
   map %>%
     clearMarkers() %>%
@@ -34,7 +34,7 @@ draw_cities <- function(map, data) {
 }
 
 # draw_demographics draws the choropleth  
-draw_demographics <- function(input, map, data) {
+draw_demographics <- function(map, input, data) {
   
   pal <- colorNumeric("Blues", NULL, n = 9)
   

@@ -35,18 +35,14 @@ draw_cities <- function(map, data) {
 
 # draw_demographics draws the choropleth  
 draw_demographics <- function(map, input, data) {
-  
   pal <- colorNumeric("Blues", NULL, n = 9)
   
   map %>%
     clearShapes() %>% 
     addPolygons(data = data,
                 fillColor = ~pal(input$population),
-                fillOpacity = 0.5,
+                fillOpacity = 0.4,
                 color = "#BDBDC3",
-                weight = 1) #%>%
-    #addLegend(pal = pal,
-    #          values = data,
-    #          position = "bottomright",
-    #          title = "Population")
+                weight = 1)
+
 }

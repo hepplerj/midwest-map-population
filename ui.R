@@ -38,6 +38,8 @@ shinyUI(
                                           "Native population" = "totalIndian", 
                                           "Population density" = "totalDens"), 
                            selected = "totalPop"),
+               
+               checkboxInput("legend", "Show legend", FALSE),
               
                # Histogram plot 
                plotOutput("cities_hist", height = 200),

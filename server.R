@@ -26,8 +26,8 @@ shinyServer(function(input, output, session) {
   })
   
   demographics_filtered <- reactive({
-    #counties[[input$year]]
-    #input$population
+    counties[[input$year]]
+    input$population
   })
   
   # Histogram plot of population 
@@ -91,23 +91,23 @@ shinyServer(function(input, output, session) {
       draw_cities(cities_by_year())
   })
   observe({
-    #leafletProxy("cities_map", session, deferUntilFlush = FALSE) %>% 
-      #draw_demographics(demographics_filtered())
+    leafletProxy("cities_map", session, deferUntilFlush = FALSE) %>% 
+      draw_demographics(demographics_filtered())
   })
   
   # Use a separate observer to recreate the legend as needed.
   observe({
-    proxy <- leafletProxy("cities_map", data = counties)
+    #proxy <- leafletProxy("cities_map", data = counties)
     
     # Remove any existing legend, and only if the legend is
     # enabled, create a new one.
-    proxy %>% clearControls()
-    if (input$legend) {
-      pal <- pal
-      proxy %>% addLegend(position = "bottomright",
-                          pal = pal, values = input$population
-      )
-    }
+    #proxy %>% clearControls()
+    #if (input$legend) {
+    #  pal <- pal
+    #  proxy %>% addLegend(position = "bottomright",
+    #                      pal = pal, values = input$population
+    #  )
+    #}
   })
   
 })

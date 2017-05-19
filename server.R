@@ -106,8 +106,8 @@ shinyServer(function(input, output, session) {
       draw_cities(cities_by_year())
   })
   observe({
-    #leafletProxy("cities_map", session, deferUntilFlush = FALSE) %>% 
-      #draw_demographics(demographics_filtered())
+    leafletProxy("cities_map", session, deferUntilFlush = FALSE) %>% 
+      draw_demographics(demographics_filtered())
   })
   
   # Use a separate observer to recreate the legend as needed.

@@ -27,18 +27,7 @@ shinyUI(
                checkboxInput("state_boundaries", label = "County boundaries", FALSE),
               
                # Select demographics 
-               selectInput("population", label = "Demographics",  
-                           choices = list("None" = "None", 
-                                          "All population" = "totalPop", 
-                                          "Black population" = "totalAfAm", 
-                                          "Enslaved population (1790-1860)" = "slavePop", 
-                                          "Free black population (1790-1860)" = "freeAfAm", 
-                                          "Asian population" = "totalAsian", 
-                                          "Latino population" = "totalHispanic", 
-                                          "Native population" = "totalIndian", 
-                                          "Population density" = "totalDens"), 
-                           selected = "totalPop"),
-               
+               uiOutput("population"),
                checkboxInput("legend", "Show legend", FALSE),
               
                # Histogram plot 

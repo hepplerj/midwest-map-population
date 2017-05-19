@@ -30,6 +30,21 @@ shinyServer(function(input, output, session) {
     input$population
   })
   
+  output$population <- renderUI({
+    
+    choices <- list("None" = "None", 
+                   "All population" = "totalPop", 
+                   "Black population" = "totalAfAm", 
+                   "Enslaved population (1790-1860)" = "slavePop", 
+                   "Free black population (1790-1860)" = "freeAfAm", 
+                   "Asian population" = "totalAsian", 
+                   #"Latino population" = "totalHispanic", 
+                   "Native population" = "totalIndian", 
+                   "Population density" = "totalDens") 
+    selectInput(inputId = "population", label = "Demographics", choices = choices, selected = "totalPop")
+    
+  })
+  
   # Histogram plot of population 
   # ---------------------------------------------------------------------------
   output$cities_hist <- renderPlot({
@@ -56,8 +71,8 @@ shinyServer(function(input, output, session) {
             setView(lat = 43.25, lng = -94.30, zoom = 6)
     
     # Initally draw the map defaulting to 1810
-    map %>% draw_cities(filter(cities, year == 1810)) %>% 
-            draw_demographics(input, counties[["1810"]])
+    map %>% draw_cities(filter(cities, year == 1810))
+    map %>% draw_demographics(input, counties[["1810"]])
   })
   
   observe({
@@ -91,8 +106,8 @@ shinyServer(function(input, output, session) {
       draw_cities(cities_by_year())
   })
   observe({
-    leafletProxy("cities_map", session, deferUntilFlush = FALSE) %>% 
-      draw_demographics(demographics_filtered())
+    #leafletProxy("cities_map", session, deferUntilFlush = FALSE) %>% 
+      #draw_demographics(demographics_filtered())
   })
   
   # Use a separate observer to recreate the legend as needed.

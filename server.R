@@ -27,7 +27,6 @@ shinyServer(function(input, output, session) {
   
   demographics_filtered <- reactive({
     counties[[input$year]]
-    input$population
   })
   
   output$population <- renderUI({
@@ -72,7 +71,13 @@ shinyServer(function(input, output, session) {
     
     # Initally draw the map defaulting to 1810
     map %>% draw_cities(filter(cities, year == 1810))
-    map %>% draw_demographics(input, counties[["1810"]])
+    map %>% clearShapes() %>% addPolygons(
+      data = counties[["1810"]],
+      fillColor = ~pal(totalPop),
+      fillOpacity = 0.4,
+      color = "#BDBDC3",
+      weight = 1
+    ) 
   })
   
   observe({
@@ -106,8 +111,8 @@ shinyServer(function(input, output, session) {
       draw_cities(cities_by_year())
   })
   observe({
-    leafletProxy("cities_map", session, deferUntilFlush = FALSE) %>% 
-      draw_demographics(demographics_filtered())
+      leafletProxy("cities_map", session, deferUntilFlush = FALSE) %>% 
+        draw_demographics(input, demographics_filtered())
   })
   
   # Use a separate observer to recreate the legend as needed.

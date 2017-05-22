@@ -11,6 +11,7 @@ radius_scale <- function(x) {
     rescale(to = c(1, 55), from = range(0, max_pop))
 }
 
+
 ## Handle pop-ups
 # For cities
 popup_cities <- function(name, year, population, county) {

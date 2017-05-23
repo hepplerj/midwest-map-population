@@ -29,7 +29,7 @@ shinyServer(function(input, output, session) {
     counties[[as.character(input$year)]]
   })
   
-  output$population <- renderUI({
+  output$select_population <- renderUI({
     
     choices <- list("None" = "None", 
                    "All population" = "totalPop", 

@@ -37,10 +37,12 @@ draw_cities <- function(map, data) {
 # draw_demographics draws the choropleth  
 draw_demographics <- function(map, input, data) {
   pal <- colorQuantile("YlGnBu", domain = NULL, n = 7)
+  #browser()
+  
   map %>%
     clearShapes() %>% 
     addPolygons(data = data,
-                fillColor = ~pal(totalDens),
+                fillColor = ~pal(input$population),
                 fillOpacity = 0.4,
                 color = "#BDBDC3",
                 weight = 1)

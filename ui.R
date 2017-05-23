@@ -27,7 +27,7 @@ shinyUI(
                checkboxInput("state_boundaries", label = "County boundaries", FALSE),
               
                # Select demographics 
-               uiOutput("population"),
+               uiOutput("select_population"),
                checkboxInput("legend", "Show legend", FALSE),
               
                # Histogram plot 

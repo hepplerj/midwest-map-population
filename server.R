@@ -33,14 +33,14 @@ shinyServer(function(input, output, session) {
     
     choices <- list("None" = "None", 
                    "All population" = "totalPop", 
+                   "Population density" = "totalDens",
                    "Black population" = "totalAfAm", 
                    "Enslaved population (1790-1860)" = "slavePop", 
                    "Free black population (1790-1860)" = "freeAfAm", 
                    "Asian population" = "totalAsian", 
                    #"Latino population" = "totalHispanic", 
-                   "Native population" = "totalIndian", 
-                   "Population density" = "totalDens") 
-    selectInput(inputId = "population", label = "Demographics", choices = choices, selected = "totalPop")
+                   "Native population" = "totalIndian") 
+    selectInput(inputId = "population", label = "Demographics", choices = choices, selected = "totalDens")
     
   })
   
@@ -70,8 +70,8 @@ shinyServer(function(input, output, session) {
             setView(lat = 43.25, lng = -94.30, zoom = 6)
     
     # Initally draw the map defaulting to 1810
-    map %>% draw_cities(filter(cities, year == 1810)) %>% 
-            draw_demographics(input, counties[["1810"]])
+    map %>% draw_demographics(input, counties[["1810"]]) %>% 
+            draw_cities(filter(cities, year == 1810))
   })
   
   observe({
@@ -101,12 +101,12 @@ shinyServer(function(input, output, session) {
   # Update cities by year
   # ---------------------------------------------------------------------------
   observe({
-    leafletProxy("cities_map", session, deferUntilFlush = FALSE) %>%
-      draw_cities(cities_by_year())
+    leafletProxy("cities_map", session, deferUntilFlush = FALSE) %>% 
+      draw_demographics(input, demographics_filtered())
   })
   observe({
-      leafletProxy("cities_map", session, deferUntilFlush = FALSE) %>% 
-        draw_demographics(input, demographics_filtered())
+    leafletProxy("cities_map", session, deferUntilFlush = FALSE) %>%
+      draw_cities(cities_by_year())
   })
   
   # Use a separate observer to recreate the legend as needed.

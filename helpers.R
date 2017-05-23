@@ -27,7 +27,7 @@ draw_cities <- function(map, data) {
   map %>%
     clearMarkers() %>%
     addCircleMarkers(data = data,
-                     fillColor = "#B53D35", fillOpacity = 0.6, weight = 0.5,
+                     fillColor = "#B53D35", fillOpacity = 0.7, weight = 0.5,
                      color = "#fff",
                      radius = ~radius_scale(population),
                      lng = ~lng, lat = ~lat, layerId = ~id,
@@ -36,11 +36,11 @@ draw_cities <- function(map, data) {
 
 # draw_demographics draws the choropleth  
 draw_demographics <- function(map, input, data) {
-  pal <- colorNumeric("Blues", NULL, n = 9)
+  pal <- colorQuantile("YlGnBu", domain = NULL, n = 7)
   map %>%
     clearShapes() %>% 
     addPolygons(data = data,
-                fillColor = ~pal(input$population),
+                fillColor = ~pal(totalDens),
                 fillOpacity = 0.4,
                 color = "#BDBDC3",
                 weight = 1)

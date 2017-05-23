@@ -26,7 +26,7 @@ shinyServer(function(input, output, session) {
   })
   
   demographics_filtered <- reactive({
-    counties[[input$year]]
+    counties[[as.character(input$year)]]
   })
   
   output$population <- renderUI({
@@ -71,13 +71,7 @@ shinyServer(function(input, output, session) {
     
     # Initally draw the map defaulting to 1810
     map %>% draw_cities(filter(cities, year == 1810))
-    map %>% clearShapes() %>% addPolygons(
-      data = counties[["1810"]],
-      fillColor = ~pal(totalPop),
-      fillOpacity = 0.4,
-      color = "#BDBDC3",
-      weight = 1
-    ) 
+    map %>% draw_demographics(input, counties[["1810"]])
   })
   
   observe({

@@ -20,8 +20,6 @@ popup_cities <- function(name, year, population, county) {
          "<b>", "Population in ", year, ": ", "</b>", comma(population))
 }
 
-pal <- colorNumeric("Blues", NULL, n = 9)
-  
 ## Functions
 
 # draw_cities draws population bubbles
@@ -38,7 +36,7 @@ draw_cities <- function(map, data) {
 
 # draw_demographics draws the choropleth  
 draw_demographics <- function(map, input, data) {
-  
+  pal <- colorNumeric("Blues", NULL, n = 9)
   map %>%
     clearShapes() %>% 
     addPolygons(data = data,

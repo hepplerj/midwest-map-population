@@ -46,6 +46,7 @@ shinyServer(function(input, output, session) {
                 choices = choices, selected = "totalDens")
   })
   
+  
   # Histogram plot of population ----------------------------------------------
   output$cities_hist <- renderPlot({
     pops <- cities_by_year()
@@ -75,8 +76,8 @@ shinyServer(function(input, output, session) {
             setView(lat = 43.25, lng = -94.30, zoom = 6)
     
     # Initally draw the map defaulting to 1810
-    map %>% draw_demographics(input, counties[["1810"]]) %>% 
-            draw_cities(filter(cities, year == 1810))
+    map %>% draw_demographics(input, counties[[as.character(input$year)]]) %>% 
+            draw_cities(filter(cities, year == input$year))
   })
   
   observe({
@@ -84,23 +85,23 @@ shinyServer(function(input, output, session) {
   })
 
   # County boundaries ---------------------------------------------------------
-  observe({
-    map <- leafletProxy("cities_map", session, deferUntilFlush = FALSE)
-    if (input$state_boundaries) {
-      date   <- as.Date(paste(input$year, 1, 1, sep = "-"))
-      if (date > as.Date("2000-12-31")) date <- as.Date("2000-01-01")
-      counties <- us_counties(date, states=c("Illinois", "Indiana", "Iowa", "Kansas", "Michigan", "Minnesota", "Missouri", "Nebraska", "North Dakota", "Ohio", "South Dakota", "Wisconsin", "Dakota Territory"))
-      state <- us_states(date, states=c("Illinois", "Indiana", "Iowa", "Kansas", "Michigan", "Minnesota", "Missouri", "Nebraska", "North Dakota", "Ohio", "South Dakota", "Wisconsin", "Dakota Territory"))
-      map %>%
-        clearShapes() %>%
-        addPolygons(data = counties,
-                    fill = FALSE, color = "#57234D", fillOpacity = 0.5, weight = 0.3) %>%
-        addPolygons(data = state,
-                    fill = FALSE, color= "#57234D", weight = 1)
-    } else {
-     map %>% clearShapes()
-    }
-  })
+  # observe({
+  #   map <- leafletProxy("cities_map", session, deferUntilFlush = FALSE)
+  #   if (input$state_boundaries) {
+  #     date   <- as.Date(paste(input$year, 1, 1, sep = "-"))
+  #     if (date > as.Date("2000-12-31")) date <- as.Date("2000-01-01")
+  #     counties <- us_counties(date, states=c("Illinois", "Indiana", "Iowa", "Kansas", "Michigan", "Minnesota", "Missouri", "Nebraska", "North Dakota", "Ohio", "South Dakota", "Wisconsin", "Dakota Territory"))
+  #     state <- us_states(date, states=c("Illinois", "Indiana", "Iowa", "Kansas", "Michigan", "Minnesota", "Missouri", "Nebraska", "North Dakota", "Ohio", "South Dakota", "Wisconsin", "Dakota Territory"))
+  #     map %>%
+  #       clearShapes() %>%
+  #       addPolygons(data = counties,
+  #                   fill = FALSE, color = "#57234D", fillOpacity = 0.5, weight = 0.3) %>%
+  #       addPolygons(data = state,
+  #                   fill = FALSE, color= "#57234D", weight = 1)
+  #   } else {
+  #    map %>% clearShapes()
+  #   }
+  # })
   
   # Update cities by year
   observe({
@@ -111,20 +112,4 @@ shinyServer(function(input, output, session) {
     leafletProxy("cities_map", session, deferUntilFlush = FALSE) %>%
       draw_cities(cities_by_year())
   })
-  
-  # Use a separate observer to enable the legend
-  observe({
-    #proxy <- leafletProxy("cities_map", data = counties)
-    
-    # Remove any existing legend, and only if the legend is
-    # enabled, create a new one.
-    #proxy %>% clearControls()
-    #if (input$legend) {
-    #  pal <- pal
-    #  proxy %>% addLegend(position = "bottomright",
-    #                      pal = pal, values = input$population
-    #  )
-    #}
-  })
-  
 })

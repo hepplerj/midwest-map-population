@@ -63,9 +63,9 @@ draw_demographics <- function(map, input, data) {
   cpop <- data[[input$population]]
   
   if (length(cpop)==0) return(map) # no pop data so just return (much faster)
-  if(input$population == "None") { map %>% clearShapes() }
+  if(input$population == "None") { map %>% clearShapes() %>% clearControls() }
   
-  pal <- getpal(cpop,7)
+  pal <- getpal(cpop, 7)
 
   map %>%
     clearShapes() %>% 
@@ -73,6 +73,8 @@ draw_demographics <- function(map, input, data) {
                 fillColor = ~pal(cpop),
                 fillOpacity = 0.4,
                 color = "#BDBDC3",
-                weight = 1)
+                weight = 1) %>% 
+    addLegend(position = "bottomright",
+              pal = pal, values = cpop)
 
 }

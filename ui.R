@@ -24,11 +24,10 @@ shinyUI(
                            animate=animationOptions(interval=1400, loop=FALSE)),
               
                # Draw county boundaries 
-               checkboxInput("state_boundaries", label = "County boundaries", FALSE),
+               #checkboxInput("state_boundaries", label = "County boundaries", FALSE),
               
                # Select demographics 
                uiOutput("select_population"),
-               checkboxInput("legend", "Show legend", FALSE),
               
                # Histogram plot 
                plotOutput("cities_hist", height = 200),

@@ -63,6 +63,7 @@ draw_demographics <- function(map, input, data) {
   cpop <- data[[input$population]]
   
   if (length(cpop)==0) return(map) # no pop data so just return (much faster)
+  if(input$population == "None") { map %>% clearShapes() }
   
   pal <- getpal(cpop,7)
 

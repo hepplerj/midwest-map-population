@@ -18,7 +18,7 @@ source("helpers.R")
 
 shinyServer(function(input, output, session) {
   
-  # Reactives
+  # Reactives -----------------------------------------------------------------
   # Handle data selection and filtering
   cities_by_year <- reactive({
     cities %>%
@@ -29,23 +29,24 @@ shinyServer(function(input, output, session) {
     counties[[as.character(input$year)]]
   })
   
+  # selectInput ---------------------------------------------------------------
+  # for selecting demographic features to examine
+  choices <- list("None" = "None", 
+                  "All population" = "totalPop", 
+                  "Population density" = "totalDens",
+                  "Black population" = "totalAfAm", 
+                  "Enslaved population (1790-1860)" = "slavePop", 
+                  "Free black population (1790-1860)" = "freeAfAm", 
+                  "Asian population" = "totalAsian", 
+                  "Latino population" = "totalHispanic", 
+                  "Native population" = "totalIndian") 
+  
   output$select_population <- renderUI({
-    
-    choices <- list("None" = "None", 
-                   "All population" = "totalPop", 
-                   "Population density" = "totalDens",
-                   "Black population" = "totalAfAm", 
-                   "Enslaved population (1790-1860)" = "slavePop", 
-                   "Free black population (1790-1860)" = "freeAfAm", 
-                   "Asian population" = "totalAsian", 
-                   #"Latino population" = "totalHispanic", 
-                   "Native population" = "totalIndian") 
-    selectInput(inputId = "population", label = "Demographics", choices = choices, selected = "totalDens")
-    
+    selectInput(inputId = "population", label = "Demographics", 
+                choices = choices, selected = "totalDens")
   })
   
-  # Histogram plot of population 
-  # ---------------------------------------------------------------------------
+  # Histogram plot of population ----------------------------------------------
   output$cities_hist <- renderPlot({
     pops <- cities_by_year()
     ggplot(pops, aes(x = population)) +
@@ -58,9 +59,13 @@ shinyServer(function(input, output, session) {
            title = paste("Midwest cities in", input$year))
   })
 
-  # Map setup
-  # ---------------------------------------------------------------------------
+  # Map setup --------------------------------------------------------------
+  # Output the Leaflet map and apply the filtered data
+  # defaulting to 1810
   output$cities_map <- renderLeaflet({
+    req(input$population)
+    req(input$year)
+    
     map <- leaflet() %>%
             addProviderTiles(provider = "CartoDB.Positron",
                              providerTileOptions(detectRetina = FALSE,
@@ -78,8 +83,7 @@ shinyServer(function(input, output, session) {
     map <- leafletProxy("cities_map", session, deferUntilFlush = TRUE)
   })
 
-  # County boundaries
-  # ---------------------------------------------------------------------------
+  # County boundaries ---------------------------------------------------------
   observe({
     map <- leafletProxy("cities_map", session, deferUntilFlush = FALSE)
     if (input$state_boundaries) {
@@ -99,7 +103,6 @@ shinyServer(function(input, output, session) {
   })
   
   # Update cities by year
-  # ---------------------------------------------------------------------------
   observe({
     leafletProxy("cities_map", session, deferUntilFlush = FALSE) %>% 
       draw_demographics(input, demographics_filtered())
@@ -109,7 +112,7 @@ shinyServer(function(input, output, session) {
       draw_cities(cities_by_year())
   })
   
-  # Use a separate observer to recreate the legend as needed.
+  # Use a separate observer to enable the legend
   observe({
     #proxy <- leafletProxy("cities_map", data = counties)
     

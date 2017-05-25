@@ -20,7 +20,30 @@ popup_cities <- function(name, year, population, county) {
          "<b>", "Population in ", year, ": ", "</b>", comma(population))
 }
 
-## Functions
+## Functions --------------------------------------------------------------------
+
+# try out various ways to get an acceptable color palette function
+getpal <- function(cpop,nmax){
+  if (length(cpop)>1){
+    # try out value from nmax down to 1
+    for (n in nmax:1){
+      qpct <- 0:n/n
+      cpopcuts <- quantile(cpop,qpct)
+      # here we test to see if all the cuts are unique
+      if (length(unique(cpopcuts))==length(cpopcuts)){
+        if (n==1){ 
+          # The data is very very skewed.
+          # using quantiles will make everything one color in this case (bug?)
+          # so fall back to colorBin method
+          return(colorBin("YlGnBu",cpop, bins=nmax))
+        }
+        return(colorQuantile("YlGnBu", cpop, probs=qpct))
+      }
+    }
+  }
+  # if all values and methods fail make everything white
+  pal <- function(x) { return("white") }
+}
 
 # draw_cities draws population bubbles
 draw_cities <- function(map, data) {
@@ -36,13 +59,17 @@ draw_cities <- function(map, data) {
 
 # draw_demographics draws the choropleth  
 draw_demographics <- function(map, input, data) {
-  pal <- colorQuantile("YlGnBu", domain = NULL, n = 7)
-  #browser()
+  req(input$population)
+  cpop <- data[[input$population]]
   
+  if (length(cpop)==0) return(map) # no pop data so just return (much faster)
+  
+  pal <- getpal(cpop,7)
+
   map %>%
     clearShapes() %>% 
     addPolygons(data = data,
-                fillColor = ~pal(input$population),
+                fillColor = ~pal(cpop),
                 fillOpacity = 0.4,
                 color = "#BDBDC3",
                 weight = 1)

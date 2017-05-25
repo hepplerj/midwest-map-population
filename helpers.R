@@ -28,7 +28,7 @@ getpal <- function(cpop,nmax){
     # try out value from nmax down to 1
     for (n in nmax:1){
       qpct <- 0:n/n
-      cpopcuts <- quantile(cpop,qpct)
+      cpopcuts <- quantile(cpop,qpct, na.rm = TRUE)
       # here we test to see if all the cuts are unique
       if (length(unique(cpopcuts))==length(cpopcuts)){
         if (n==1){ 

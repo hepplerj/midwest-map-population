@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Midwest Population Growth</title>
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Pico CSS Framework -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,600" rel="stylesheet">
+</head>
+<body>
+    <!-- Full screen map container -->
+    <div id="fullscreen">
+        <div id="cities_map"></div>
+    </div>
+    
+    <!-- Control panel -->
+    <aside id="controls">
+        <header>
+            <h3>Midwest Population Growth</h3>
+        </header>
+        
+        <main>
+            <!-- Info button -->
+            <section class="control-group">
+                <button id="info-button" class="outline secondary">About this map</button>
+            </section>
+            
+            <!-- Year slider -->
+            <section class="control-group">
+                <label for="year-slider">
+                    Year: <strong id="year-display">1810</strong>
+                </label>
+                <input type="range" id="year-slider" min="1810" max="2010" step="10" value="1810">
+                <div class="slider-controls">
+                    <button id="play-button" class="outline">▶ Play</button>
+                    <button id="reset-button" class="outline">⏹ Reset</button>
+                </div>
+            </section>
+            
+            <!-- Demographics selection -->
+            <section class="control-group">
+                <label for="population-select">Demographics overlay:</label>
+                <select id="population-select">
+                    <option value="None">None</option>
+                    <option value="totalPop">All population</option>
+                    <option value="totalDens" selected>Population density</option>
+                    <option value="totalAfAm">Black population</option>
+                    <option value="slavePop">Enslaved population (1790-1860)</option>
+                    <option value="freeAfAm">Free black population (1790-1860)</option>
+                    <option value="totalAsian">Asian population (1980-2010)</option>
+              <!--
+                    <option value="totalHispanic">Latino population</option>
+                    <option value="totalIndian">Native population</option>
+              -->
+                </select>
+            </section>
+            
+            <!-- Histogram container -->
+            <section class="control-group">
+                <canvas id="cities-histogram" width="300" height="200"></canvas>
+            </section>
+        </main>
+        
+        <!-- Credits -->
+        <footer style="font-size: 0.7rem; line-height: 0.4rem;" class="credits">
+            <p><small id="cesta-attribution"></small></p>
+            <p><small id="general-attribution"></small></p>
+        </footer>
+    </aside>
+    
+    <!-- Info Modal -->
+    <div id="info-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>About This Map</h2>
+                <span class="close-button" id="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>This interactive map visualizes population growth and demographic changes across the Midwest United States from 1810 to 2010.</p>
+                
+                <h3>How to Use This Map</h3>
+                <ul>
+                    <li><strong>Time Controls:</strong> Use the year slider to explore different decades, or click "Play" to animate through time</li>
+                    <li><strong>Demographics:</strong> Select different population overlays to see demographic patterns across counties</li>
+                    <li><strong>Cities:</strong> Red circles represent cities, with size proportional to population</li>
+                    <li><strong>Counties:</strong> Colored county backgrounds show demographic data when selected</li>
+                    <li><strong>Histogram:</strong> The chart shows the distribution of city populations for the selected year</li>
+                </ul>
+                
+                <h3>About the Data</h3>
+                <p>This visualization combines historical census data and geographic information to show how the Midwest developed over two centuries. The map includes data on total population, population density, and demographic breakdowns including Black, Asian, enslaved, and free populations where historically available.</p>
+                
+                <p><em>Click anywhere on the map or counties to see detailed information for specific locations and years.</em></p>
+            </div>
+            <div class="modal-footer">
+                <button id="modal-close-button" class="outline">Got it!</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <!-- D3.js for CSV parsing -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    
+    <!-- Main application JavaScript -->
+    <script src="app.js"></script>
+</body>
+</html>

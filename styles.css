@@ -1,17 +1,104 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans');
-@import url('https://fonts.googleapis.com/css?family=Fira+Sans');
-body {font-family: 'Open Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;}
-h1, h2, h3, h4, h5 {font-family: 'Fira Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;}
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600');
+@import url('https://fonts.googleapis.com/css?family=Fira+Sans:400,600');
 
-#controls {
-  background-color: white;
-  padding: 0 20px 20px 20px;
-  zoom: 0.9;
-  height: 100vh;
+/* Override Pico defaults */
+body {
+  font-family: 'Open Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
 }
 
-#controls p {
-  line-height: 1.2rem;
+h1, h2, h3, h4, h5 {
+  font-family: 'Fira Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+#cities_map {
+  width: 100%;
+  height: 100%;
+}
+
+#controls {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 380px;
+  background-color: var(--pico-background-color);
+  padding: var(--pico-spacing);
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 1000;
+  box-shadow: 2px 0 20px rgba(0,0,0,0.15);
+  border-right: 1px solid var(--pico-muted-border-color);
+}
+
+#controls header {
+  padding-bottom: var(--pico-spacing);
+  border-bottom: 1px solid var(--pico-muted-border-color);
+  margin-bottom: var(--pico-spacing);
+}
+
+#controls h3 {
+  margin-bottom: 0;
+  color: var(--pico-color);
+  font-size: 1.25rem;
+}
+
+.control-group {
+  margin-bottom: var(--pico-spacing);
+}
+
+.control-group label {
+  margin-bottom: calc(var(--pico-spacing) * 0.5);
+  font-weight: 600;
+  color: var(--pico-color);
+}
+
+#year-slider {
+  width: 100%;
+  margin-bottom: calc(var(--pico-spacing) * 0.75);
+}
+
+.slider-controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: calc(var(--pico-spacing) * 0.5);
+}
+
+.slider-controls button {
+  font-size: 0.875rem;
+  padding: calc(var(--pico-spacing) * 0.5) var(--pico-spacing);
+}
+
+#population-select {
+  width: 100%;
+}
+
+#cities-histogram {
+  max-width: 100%;
+  height: 200px;
+  border-radius: var(--pico-border-radius);
+}
+
+.credits {
+  margin-top: var(--pico-spacing);
+  padding-top: var(--pico-spacing);
+  border-top: 1px solid var(--pico-muted-border-color);
+}
+
+.credits p {
+  line-height: 1.4;
+  margin-bottom: calc(var(--pico-spacing) * 0.5);
+  color: var(--pico-muted-color);
 }
 
 .leaflet-left {
@@ -20,4 +107,98 @@ h1, h2, h3, h4, h5 {font-family: 'Fira Sans', "Helvetica Neue", Helvetica, Arial
 
 .leaflet-clickable:hover {
   stroke: #000;
+}
+
+/* Modal styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 10000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+}
+
+.modal-content {
+  background-color: var(--pico-background-color);
+  margin: 5% auto;
+  padding: 0;
+  border-radius: var(--pico-border-radius);
+  width: 90%;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--pico-spacing);
+  border-bottom: 1px solid var(--pico-muted-border-color);
+}
+
+.modal-header h2 {
+  margin: 0;
+  color: var(--pico-color);
+  font-size: 1.5rem;
+}
+
+.close-button {
+  font-size: 2rem;
+  color: var(--pico-muted-color);
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.2s ease;
+  line-height: 1;
+}
+
+.close-button:hover {
+  color: var(--pico-color);
+}
+
+.modal-body {
+  padding: var(--pico-spacing);
+  color: var(--pico-color);
+}
+
+.modal-body h3 {
+  color: var(--pico-color);
+  margin-top: calc(var(--pico-spacing) * 1.5);
+  margin-bottom: calc(var(--pico-spacing) * 0.75);
+}
+
+.modal-body ul {
+  margin-bottom: calc(var(--pico-spacing) * 1.5);
+}
+
+.modal-body li {
+  margin-bottom: calc(var(--pico-spacing) * 0.5);
+}
+
+.modal-footer {
+  padding: var(--pico-spacing);
+  border-top: 1px solid var(--pico-muted-border-color);
+  text-align: right;
+}
+
+#info-button {
+  width: 100%;
+  margin-bottom: 0;
 }
